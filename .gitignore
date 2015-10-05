@@ -1,2 +1,4 @@
 sandbox/*
 ddp-2014/*
+*.class
+*.sublime-*
