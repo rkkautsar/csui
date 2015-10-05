@@ -23,8 +23,20 @@ public class ParabolicMotion
 		return new Point(xt,yt); 
 	}
 
-	Point max(){
-		double tmax = 2* (vy / GRAVITY);
-		return this.at(tmax);
+	double timeMax(){
+		return 2 * (vy / GRAVITY);
 	}
+
+	Point max(){
+		return this.at(this.timeMax());
+	}
+
+	double xMax(){
+		return this.max().getX();
+	}
+
+	double yMax(){
+		return this.at(this.timeMax()/2).getY();
+	}
+
 }
