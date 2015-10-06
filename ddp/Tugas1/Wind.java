@@ -5,9 +5,9 @@ class Wind extends Vector2d{
 
 	public static final double MAX_WIND_SPEED = 2;
 
-	public Wind(int round){
+	public Wind(){
 		super();
-		generator = new Random(round);
+		generator = new Random(System.currentTimeMillis());
 		dx = generator.nextDouble() * 2 * MAX_WIND_SPEED - MAX_WIND_SPEED;
 		dy = generator.nextDouble() * 2 * MAX_WIND_SPEED - MAX_WIND_SPEED;
 	}

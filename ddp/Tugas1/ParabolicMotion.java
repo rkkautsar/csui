@@ -1,17 +1,47 @@
+/**
+*	Kelas yang mengimplementasi gerakan parabola dengan gravitasi dan
+*	dipengaruhi kecepatan angin tertentu.
+*	@author Rakha Kanz Kautsar
+*/
 public class ParabolicMotion
-{
+{	
+	/**
+	*	Konstanta percepatan gravitasi dalam m/s^2
+	*/
 	private final double GRAVITY = -9.81;
+	/**
+	*	Titik asal dari gerak parabola
+	*/
 	private Point origin;
+	/**
+	*	Kecepatan pada sumbu x dan sumbu y
+	*/
 	private double vx, vy;
+	/**
+	*	Angin yang mempengaruhi lintasan parabola
+	*/
 	private Wind wind;
 	
+	/**
+	*	Konstruktor default dari kelas ParabolicMotion,
+	*	membuat kecepatan awal nol dan variabel lain mengikuti
+	*	konstruktor default masing-masing.
+	*/
 	public ParabolicMotion() {
 		vx = 0;
 		vy = 0;
 		origin = new Point();
-		wind = new Wind(0);
+		wind = new Wind();
 	}
 
+	/**
+	*	Konstruktor untuk kelas ParabolicMotion, mengubah vektor kecepatan
+	*	dari bentuk polar coordinate ke bentuk umum xi + yj
+	*	@param origin Titik awal gerak parabola
+	*	@param v Besar kecepatan dalam m/s
+	*	@param angle Besar sudut elevasi dalam derajat
+	*	@param wind Kecepatan angin yang mempengaruhi lintasan parabola
+	*/
 	public ParabolicMotion(Point origin, double v, double angle, Wind wind) {
 		this.origin = origin;
 		vx = v * Math.cos(Math.toRadians(angle));
@@ -19,6 +49,9 @@ public class ParabolicMotion
 		this.wind = wind;	
 	}
 
+	/**
+	*	
+	*/
 	public Point at(double time){
 		double xt, yt;
 		xt = origin.getX() + (vx + wind.getDx()) * time;

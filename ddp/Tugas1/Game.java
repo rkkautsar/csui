@@ -9,7 +9,7 @@ class Game
 		sc = new Scanner(System.in);
 		readInput();
 
-		int round = 0;
+		int round = 1;
 
 		while(true) {
 			stageLoop(round++);
@@ -20,41 +20,51 @@ class Game
 		String name;
 		int x;
 
-		System.out.print("Masukkan nama Player 1 > ");
-		name = sc.nextLine();
-		if(name.length()<=0) name = "Player 1";
-		System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
-		x = sc.nextInt(); sc.nextLine();
-		player1 = new Player(name, new Point(x,0));
+		try{
+			System.out.print("Masukkan nama Player 1 > ");
+			name = sc.nextLine();
+			if(name.length()<=0) name = "Player 1";
+			System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
+			x = sc.nextInt(); sc.nextLine();
+			player1 = new Player(name, new Point(x,0));
 
-		System.out.println("=========================================");
-		System.out.println("----- Player 1 --------------------------");
-		System.out.println(" Name 		: " + player1.getName());
-		System.out.println(" Position 	: (" + x + ", 0)");
-		System.out.println(" Health 	: 100");
-		System.out.println("=========================================");
+			System.out.println("=========================================");
+			System.out.println("----- Player 1 --------------------------");
+			System.out.println(" Name 		: " + player1.getName());
+			System.out.println(" Position 	: (" + x + ", 0)");
+			System.out.println(" Health 	: 100");
+			System.out.println("=========================================");
 
-		System.out.println();
+			System.out.println();
 
-		System.out.print("Masukkan nama Player 2 > ");
-		name = sc.nextLine();
-		if(name.length()<=0) name = "Player 2";
-		System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
-		x = sc.nextInt();sc.nextLine();
-		player2 = new Player(name, new Point(x,0));
+			System.out.print("Masukkan nama Player 2 > ");
+			name = sc.nextLine();
+			if(name.length()<=0) name = "Player 2";
+			System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
+			x = sc.nextInt();sc.nextLine();
+			player2 = new Player(name, new Point(x,0));
 
-		System.out.println("=========================================");
-		System.out.println("----- Player 2 --------------------------");
-		System.out.println(" Name 		: " + player2.getName());
-		System.out.println(" Position 	: (" + x + ", 0)");
-		System.out.println(" Health 	: 100");
-		System.out.println("=========================================");		
+			System.out.println("=========================================");
+			System.out.println("----- Player 2 --------------------------");
+			System.out.println(" Name 		: " + player2.getName());
+			System.out.println(" Position 	: (" + x + ", 0)");
+			System.out.println(" Health 	: 100");
+			System.out.println("=========================================");
+		} catch(Exception e){
+			System.err.println();
+			System.err.println("=========================================");
+			System.err.println("                 Error!");
+			System.err.println("=========================================");
+			System.err.println();
+			sc.nextLine();
+			readInput();
+		}		
 	}
 
 	private void stageLoop(int round){
 		double angle,power;
 
-		Wind roundWind = new Wind(round);		
+		Wind roundWind = new Wind();		
 
 		System.out.println("==========================");
 		System.out.println("   Round #" + round);

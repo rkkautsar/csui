@@ -1,25 +1,36 @@
+/**
+*	Kelas yang mengimplementasikan sebuah vector dua dimensi
+* 	yang memiliki vektor satuan dx dan vektor satuan dy.
+*	@author Rakha Kanz Kautsar
+*/
 class Vector2d
 {
-	protected double dx,dy; // dx i + dx j
+	/**
+	*	Vektor satuan (m) di sumbu x
+	*/
+	protected double dx;
+	/**
+	*	Vektor satuan (m) di sumbu y
+	*/
+	protected double dy;
 
+	/**
+	*	Konstruktor default dari kelas Vector2d,
+	*	menjadikan dx dan dy nol.
+	*/
 	public Vector2d(){
 		dx = 0;
 		dy = 0;
 	}
 
-	public Vector2d(Vector2d other){
-		dx = other.getDx();
-		dy = other.getDy();
-	}
-
+	/**
+	*	Konstruktor kelas Vector2d
+	*	@param dx Panjang vektor pada sumbu x dalam meter
+	*	@param dy Panjang vektor pada sumbu y dalam meter
+	*/
 	public Vector2d(double dx, double dy){
 		this.dx = dx;
 		this.dy = dy;
-	}
-
-	public void add(Vector2d v, double scale){
-		dx += scale * v.getDx();
-		dy += scale * v.getDy();
 	}
 
 	// accessor

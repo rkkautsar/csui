@@ -1,10 +1,10 @@
 class Cannon
 {
-	private static final double EPS = 1e-9,
-								CANNON_RADIUS = 5,
-								CANNON_BASE_DAMAGE = 50;
+	protected static final double	EPS = 1e-9;
+	private static final double   	CANNON_RADIUS = 5,
+								  	CANNON_BASE_DAMAGE = 50;
 	private static int timeLen, xLen, yLen;
-	Point pos;
+	private Point pos;
 
 	public Cannon(){
 		pos = new Point();
@@ -23,7 +23,7 @@ class Cannon
 		do {
 			printAtTime(time, motion.at(time));
 			++time;
-		} while(motion.at(time).getY() >= 0);
+		} while(motion.at(time).getY() > EPS);
 
 		if(motion.timeMax() > time - 1 + EPS)
 			printAtTime(motion.timeMax(), motion.max());
