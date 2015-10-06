@@ -50,7 +50,9 @@ public class ParabolicMotion
 	}
 
 	/**
-	*	
+	*	Method yang menghitung posisi pada lintasan parabola pada waktu yang diinginkan
+	*	@param time Waktu yang diinginkan
+	*	@return Posisi di lintasan parabola pada saat time
 	*/
 	public Point at(double time){
 		double xt, yt;
@@ -59,18 +61,35 @@ public class ParabolicMotion
 		return new Point(xt,yt); 
 	}
 
+	/**
+	*	Method yang mengembalikan waktu yang dibutuhkan untuk mencapai nilai x maksimal
+	*	pada lintasan parabola
+	*	@return Waktu yang dibutuhkan untuk mencapai x maksimal
+	*/
 	public double timeMax(){
 		return Math.abs(2 * ((vy + wind.getDy()) / GRAVITY));
 	}
 
+	/**
+	*	Method yang mengembalikan posisi x maksimal saat y = 0
+	*	@return titik saat x maksimal
+	*/
 	public Point max(){
 		return this.at(this.timeMax());
 	}
 
+	/**
+	*	Method yang mengembalikan posisi maksimal lintasan di sumbu x
+	*	@return nilai maksimal di sumbu x
+	*/
 	public double xMax(){
 		return this.max().getX();
 	}
 
+	/** 
+	*	Method yang mengembalikan posisi maksimal lintasan di sumbu y
+	*	@return nilai maksimal di sumbu y
+	*/
 	public double yMax(){
 		return this.at(this.timeMax()/2).getY();
 	}
