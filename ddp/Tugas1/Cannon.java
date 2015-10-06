@@ -2,7 +2,7 @@ class Cannon
 {
 	private static final double EPS = 1e-9,
 								CANNON_RADIUS = 5,
-								CANNON_BASE_DAMAGE = 75;
+								CANNON_BASE_DAMAGE = 50;
 	private static int timeLen, xLen, yLen;
 	Point pos;
 
