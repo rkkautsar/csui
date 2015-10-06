@@ -1,11 +1,15 @@
 class Vector2d
 {
-	private double 	dx,dy, // dx i + dx j
-					ax,ay; // percepatan di sumbu x, percepatan di sumbu y
+	protected double dx,dy; // dx i + dx j
 
 	public Vector2d(){
 		dx = 0;
 		dy = 0;
+	}
+
+	public Vector2d(Vector2d other){
+		dx = other.getDx();
+		dy = other.getDy();
 	}
 
 	public Vector2d(double dx, double dy){
@@ -13,25 +17,17 @@ class Vector2d
 		this.dy = dy;
 	}
 
-	public Vector2d(PolarVector v){
-		double angle = v.getAngle();
-		double magnitude = v.getMagnitude();
-
-		dx = magnitude * Math.cos(Math.toRadians(angle));
-		dy = magnitude * Math.sin(Math.toRadians(angle));
-	}
-
-	void add(Vector2d v, double scale){
+	public void add(Vector2d v, double scale){
 		dx += scale * v.getDx();
 		dy += scale * v.getDy();
 	}
 
 	// accessor
-	double getDx(){
+	public double getDx(){
 		return dx;
 	}
 
-	double getDy(){
+	public double getDy(){
 		return dy;
 	}
 }
