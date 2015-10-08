@@ -33,6 +33,13 @@ class Vector2d
 		this.dy = dy;
 	}
 
+	/**
+	*	Method helper untuk memformat Vector2d dalam representasi String
+	*/
+	public String toString(){
+		return "(" + dx + ", " + dy + ")";
+	}
+
 	// accessor
 	public double getDx(){
 		return dx;

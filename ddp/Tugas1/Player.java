@@ -68,6 +68,15 @@ class Player
 		cannon.shoot(this, other, v, angle, wind);
 	}
 
+
+	/**
+	*	Method untuk mensimulasikan gerakan Player pada sumbu x
+	*	@param dx Besarnya gerakan Player pada sumbu x dalam meter
+	*/
+	public void move(int dx){
+		pos.translate(dx, 0);
+	}
+
 	// accessor
 	public String getName(){
 		return name;

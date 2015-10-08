@@ -12,12 +12,18 @@ class Point
 		this.y = y;
 	}
 
-	void add(Vector2d v){
-		x += v.getDx();
-		y += v.getDy();
+	void translate(double dx,double dy){
+		x += dx;
+		y += dy;
 	}
 
-	@Override
+	void add(Vector2d v){
+		translate(v.getDx(), v.getDy());
+	}
+
+	/**
+	*	Method helper untuk memformat Point dalam representasi String
+	*/
 	public String toString(){
 		return "(" + x + ", " + y + ")";
 	}
