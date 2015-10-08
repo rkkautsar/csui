@@ -3,7 +3,7 @@
 *	dipengaruhi kecepatan angin tertentu.
 *	@author Rakha Kanz Kautsar
 */
-public class ParabolicMotion
+class ParabolicMotion
 {	
 	/**
 	*	Konstanta percepatan gravitasi dalam m/s^2
