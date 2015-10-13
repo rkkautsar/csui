@@ -6,7 +6,8 @@ import java.util.Random;
 *	melakukan perhitungan sederhana setiap kali menembak
 *	@author Rakha Kanz Kautsar
 */
-class Ai extends Player {
+class Ai extends Player
+{
 	/**
 	*	Batasan maksimum posisi AI
 	*/

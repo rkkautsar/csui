@@ -86,21 +86,27 @@ class Game
 
 				System.out.print("Masukkan nama Player 1 > ");
 				name = sc.nextLine();
-				if(name.length()<=0) name = "Player 1";
+
+				if(name.length()<=0)
+					name = "Player 1";
 
 				System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
 				x = sc.nextInt(); 
 					sc.nextLine();
+					
 				player1 = new Player(name, new Point(x,0));
 
 				if(!solo) {
 					System.out.print("Masukkan nama Player 2, atau masukkan > ");
 					name = sc.nextLine();
-					if(name.length()<=0) name = "Player 2";
+
+					if(name.length()<=0)
+						name = "Player 2";
 
 					System.out.print("Masukkan posisi x " + name + " (dalam m) > ");
 					x = sc.nextInt();
 						sc.nextLine();
+
 					player2 = new Player(name, new Point(x,0));
 				}
 
@@ -174,6 +180,7 @@ class Game
 		do {
 			System.out.print("[Move] / [Shoot]? ");
 			command = sc.nextLine();
+
 			if(command.equalsIgnoreCase("move") || command.equalsIgnoreCase("shoot"))
 				break;
 			else{

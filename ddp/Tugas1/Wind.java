@@ -6,7 +6,8 @@ import java.util.Random;
 *	nilai random yang unik untuk setiap Wind baru
 *	@author Rakha Kanz Kautsar
 */
-class Wind extends Vector2d{
+class Wind extends Vector2d
+{
 	/**
 	*	Random Number Generator untuk membangkitkan nilai random
 	*/
