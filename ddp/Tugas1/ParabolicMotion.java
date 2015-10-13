@@ -8,7 +8,7 @@ class ParabolicMotion
 	/**
 	*	Konstanta percepatan gravitasi dalam m/s^2
 	*/
-	private final double GRAVITY = -9.81;
+	public static final double GRAVITY = -9.81;
 	/**
 	*	Titik asal dari gerak parabola
 	*/

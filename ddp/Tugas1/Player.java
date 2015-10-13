@@ -7,19 +7,19 @@ class Player
 	/**
 	* 	Nama pemain, default "Player"
 	*/
-	private String name;
+	protected String name;
 	/**
 	*	Nyawa pemain, default 100
 	*/
-	private int health;
+	protected int health;
 	/**
 	*	Posisi pemain, default (0,0)
 	*/
-	private Point pos;
+	protected Point pos;
 	/**
 	*	Cannon yang dimiliki oleh pemain, default constructor
 	*/
-	private Cannon cannon;
+	protected Cannon cannon;
 
 	/**
 	*	Konstruktor default dari kelas Player,
@@ -41,7 +41,7 @@ class Player
 		this.name = name;
 		this.pos  = pos;
 		health = 100;
-		cannon = new Cannon(pos);
+		cannon = new Cannon();
 	}
 
 	/**

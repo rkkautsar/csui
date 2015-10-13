@@ -1,19 +1,45 @@
+/**
+*	Kelas yang mengimplementasikan cannon yang menunjukkan
+*	logic dan langkah-langkah detil yang dilakukan saat Player
+*	menembakkan peluru
+*	@author Rakha Kanz Kautsar
+*/
 class Cannon
 {
-	protected static final double	EPS = 1e-9;
-	private static final double   	CANNON_RADIUS = 5,
-								  	CANNON_BASE_DAMAGE = 50;
+	/**
+	*	Radius dimana tembakan cannon memberikan damage
+	*/
+	private static final double CANNON_RADIUS = 5;
+
+	/**
+	*	Nilai damage jika peluru tepat mengenai posisi
+	*	suatu objek Player
+	*/
+	private static final double CANNON_BASE_DAMAGE = 50;
+
+	/**
+	*	Variabel helper untuk memformat output
+	*/
 	private static int timeLen, xLen, yLen;
-	private Point pos;
 
+
+	/**
+	*	Konstruktor default untuk Cannon,
+	*	tidak melakukan apa-apa
+	*/
 	public Cannon(){
-		pos = new Point();
+
 	}
 
-	public Cannon(Point pos){
-		this.pos = pos;
-	}
-
+	/**
+	*	Method yang menunjukkan detil penembakan peluru oleh shooter ke target
+	*	serta penentuan damage dan end game state dari shooter maupun target
+	*	@param shooter Player yang menembak
+	*	@param target Player yang ditembak
+	*	@param v kecepatan awal tembakan
+	*	@param angle sudut elevasi tembakan
+	*	@param wind angin yang mempengaruhi penembakan
+	*/
 	public void shoot(Player shooter, Player target, double v, double angle, Wind wind){
 		ParabolicMotion motion = new ParabolicMotion(shooter.getPos(), v, angle, wind);
 
@@ -23,17 +49,18 @@ class Cannon
 		do {
 			printAtTime(time, motion.at(time));
 			++time;
-		} while(motion.at(time).getY() > EPS);
+		} while(motion.at(time).getY() > Game.EPS);
 
-		if(motion.timeMax() > time - 1 + EPS)
+		if(motion.timeMax() > time - 1 + Game.EPS)
 			printAtTime(motion.timeMax(), motion.max());
 
 		double 	radiusTarget  = Math.abs(motion.max().getX() - target.getPos().getX()),
 				radiusShooter = Math.abs(motion.max().getX() - shooter.getPos().getX());
 		int damage;
-		boolean miss = true;
 
-		if(radiusTarget < CANNON_RADIUS + EPS){
+		boolean miss = true, gameover = false;
+
+		if(radiusTarget < CANNON_RADIUS + Game.EPS){
 			miss = false;
 			damage = (int) ((1-(radiusTarget/CANNON_RADIUS)) * CANNON_BASE_DAMAGE);
 
@@ -44,7 +71,7 @@ class Cannon
 			if(target.hit(damage)) {
 				System.out.println( "HP " + target.getName() + " habis!");
 				System.out.println(shooter.getName() + " menang!");
-				System.exit(0);
+				gameover = true;
 			} else {
 				System.out.println( "HP " + target.getName() + 
 									" berkurang menjadi " + target.getHealth());
@@ -52,7 +79,7 @@ class Cannon
 		}
 
 
-		if(radiusShooter < CANNON_RADIUS + EPS){
+		if(radiusShooter < CANNON_RADIUS + Game.EPS){
 			miss = false;
 			damage = (int) ((1-(radiusShooter/CANNON_RADIUS)) * CANNON_BASE_DAMAGE);
 
@@ -66,11 +93,20 @@ class Cannon
 				else
 					System.out.println("Pertandingan ini seri.");
 
-				System.exit(0);
+				gameover = true;
 			} else{
 				System.out.println( "HP " + shooter.getName() +
 									" berkurang menjadi " + target.getHealth());
 			}
+		}
+
+		if(gameover){
+			System.out.println();
+			System.out.println("------------------------------------");
+			System.out.println("             GAME OVER");
+			System.out.println("------------------------------------");
+			System.out.println();
+			System.exit(0);
 		}
 
 		if(miss){
@@ -78,6 +114,12 @@ class Cannon
 		}
 	}
 
+	/**
+	*	Method helper untuk memperhitungkan panjang maksimum output
+	*	waktu, posisi x, dan posisi y pada suatu ParabolicMotion
+	*	yang kemudian disimpan dalam variabel statis timeLen, xLen,dan yLen
+	*	@param motion ParabolicMotion yang dimaksud
+	*/
 	private void calculateLength(ParabolicMotion motion){
 		String 	tmpT = new String(),
 				tmpX = new String(),
@@ -91,6 +133,12 @@ class Cannon
 		yLen	= tmpY.length() + 4;
 	}
 
+	/**
+	*	Method helper yang akan mengoutputkan posisi p
+	*	di waktu time dengan format yang telah ditentukan
+	*	@param time variabel waktu yang ingin dicetak
+	*	@param p Point p yang ingin dicetak
+	*/
 	private void printAtTime(double time, Point p){
 		String format = new String();
 
