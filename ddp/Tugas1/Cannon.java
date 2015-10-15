@@ -48,6 +48,7 @@ class Cannon
 		int time = 0;
 		do {
 			printAtTime(time, motion.at(time));
+			Interface.delay(100);
 			++time;
 		} while(motion.at(time).getY() > Game.EPS);
 
@@ -60,6 +61,7 @@ class Cannon
 
 		boolean miss = true, gameover = false;
 
+		// Mengecek damage yang terjadi pada target
 		if(radiusTarget < CANNON_RADIUS + Game.EPS){
 			miss = false;
 			damage = (int) ((1-(radiusTarget/CANNON_RADIUS)) * CANNON_BASE_DAMAGE);
@@ -68,6 +70,7 @@ class Cannon
 								" mengenai " + target.getName() +
 								" dengan damage " + damage);
 
+			// Mengenakan damage dan mengecek apakah HP target habis
 			if(target.hit(damage)) {
 				System.out.println( "HP " + target.getName() + " habis!");
 				System.out.println(shooter.getName() + " menang!");
@@ -76,9 +79,10 @@ class Cannon
 				System.out.println( "HP " + target.getName() + 
 									" berkurang menjadi " + target.getHealth());
 			}
+			Interface.delay(1000);
 		}
 
-
+		// Mengecek damage yang terjadi pada penembak
 		if(radiusShooter < CANNON_RADIUS + Game.EPS){
 			miss = false;
 			damage = (int) ((1-(radiusShooter/CANNON_RADIUS)) * CANNON_BASE_DAMAGE);
@@ -86,6 +90,7 @@ class Cannon
 			System.out.println("Tembakan " + shooter.getName() +
 								" mengenai dirinya sendiri dengan damage " + damage);
 
+			// Mengenakan damage dan mengecek apakah HP penembak habis
 			if(shooter.hit(damage)){
 				System.out.println("HP " + shooter.getName() + " habis!");
 				if(target.getHealth() > 0)
@@ -96,16 +101,16 @@ class Cannon
 				gameover = true;
 			} else{
 				System.out.println( "HP " + shooter.getName() +
-									" berkurang menjadi " + target.getHealth());
+									" berkurang menjadi " + shooter.getHealth());
 			}
+
+			Interface.delay(1000);
 		}
 
+
+		// Akhiri game jika end game state telah tercapai
 		if(gameover){
-			System.out.println();
-			System.out.println("------------------------------------");
-			System.out.println("             GAME OVER");
-			System.out.println("------------------------------------");
-			System.out.println();
+			Interface.gameOver();
 			System.exit(0);
 		}
 
