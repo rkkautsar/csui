@@ -1,3 +1,8 @@
+/**
+*	Kelas yang memodelkan Titik secara umum pada bidang kartesius
+*	@author Rakha Kanz Kautsar
+*	@version 06.10.2015
+*/
 class Point
 {
 	/**

@@ -2,6 +2,7 @@
 *	Kelas yang mengimplementasi gerakan parabola dengan gravitasi dan
 *	dipengaruhi kecepatan angin tertentu.
 *	@author Rakha Kanz Kautsar
+*	@version 06.10.2015
 */
 class ParabolicMotion
 {	

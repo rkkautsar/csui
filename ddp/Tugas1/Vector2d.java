@@ -2,6 +2,7 @@
 *	Kelas yang mengimplementasikan sebuah vector dua dimensi
 * 	yang memiliki vektor satuan dx dan vektor satuan dy.
 *	@author Rakha Kanz Kautsar
+*	@author 06.10.2015
 */
 class Vector2d
 {

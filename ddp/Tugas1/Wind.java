@@ -5,6 +5,7 @@ import java.util.Random;
 *	angin sederhana sebagai vektor kecepatan yang memiliki
 *	nilai random yang unik untuk setiap Wind baru
 *	@author Rakha Kanz Kautsar
+*	@version 06.10.2015
 */
 class Wind extends Vector2d
 {

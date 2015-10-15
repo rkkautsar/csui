@@ -4,6 +4,7 @@ import java.util.Scanner;
 *	Kelas yang mengimplementasikan game itu sendiri,
 *	mulai dari logic sederhana hingga interfacenya
 *	@author Rakha Kanz Kautsar
+*	@version 15.10.2015
 */
 class Game
 {	

@@ -3,6 +3,7 @@
 *	logic dan langkah-langkah detil yang dilakukan saat Player
 *	menembakkan peluru
 *	@author Rakha Kanz Kautsar
+*	@version 13.10.2015
 */
 class Cannon
 {

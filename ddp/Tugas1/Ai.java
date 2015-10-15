@@ -5,6 +5,7 @@ import java.util.Random;
 *	yang melakukan keputusan untuk setiap turn dan
 *	melakukan perhitungan sederhana setiap kali menembak
 *	@author Rakha Kanz Kautsar
+*	@version 13.10.2015
 */
 class Ai extends Player
 {
