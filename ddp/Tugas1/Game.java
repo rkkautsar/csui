@@ -166,7 +166,7 @@ class Game
 		System.out.println("Giliran " + player.getName());
 		System.out.println("Posisi " + player.getName() + ": " + player.getPos());
 		System.out.println("Posisi " + enemy.getName() + ": " + enemy.getPos());
-		System.out.printf ("Kecepatan angin dalam m/s: (%5.2f, %5.2f)\n", roundWind.getDx(), roundWind.getDy());
+		System.out.printf ("Percepatan angin dalam m/s: (%5.2f, %5.2f)\n", roundWind.getDx(), roundWind.getDy());
 		System.out.println("-----------------------------------------");
 		System.out.println();
 		Interface.delay(500);
@@ -196,7 +196,7 @@ class Game
 		System.out.println("Giliran " + bot.getName());
 		System.out.println("Posisi " + bot.getName() + ": " + bot.getPos());
 		System.out.println("Posisi " + enemy.getName() + ": " + enemy.getPos());
-		System.out.printf ("Kecepatan angin dalam m/s: (%5.2f, %5.2f)\n", roundWind.getDx(), roundWind.getDy());
+		System.out.printf ("Percepatan angin dalam m/s: (%5.2f, %5.2f)\n", roundWind.getDx(), roundWind.getDy());
 		System.out.println("-----------------------------------------");
 		System.out.println();
 		Interface.delay(250);

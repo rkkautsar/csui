@@ -57,8 +57,8 @@ class ParabolicMotion
 	*/
 	public Point at(double time){
 		double xt, yt;
-		xt = origin.getX() + (vx + wind.getDx()) * time;
-		yt = origin.getY() + (vy + wind.getDy()) * time + 0.5 * GRAVITY * time * time;
+		xt = origin.getX() + vx * time + 0.5 * wind.getDx() * time * time;
+		yt = origin.getY() + vy * time + 0.5 * (GRAVITY + wind.getDy()) * time * time;
 		return new Point(xt,yt); 
 	}
 
