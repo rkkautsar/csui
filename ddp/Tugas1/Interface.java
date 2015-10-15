@@ -5,7 +5,7 @@ class Interface {
 		System.err.println("  ___ _ __ _ __ ___  _ __| |");
 		System.err.println(" / _ \\ '__| '__/ _ \\| '__| |");
 		System.err.println("|  __/ |  | | | (_) | |  |_|");
-		System.err.println("\\___|_|  |_|  \\___/|_|  (_)");
+		System.err.println(" \\___|_|  |_|  \\___/|_|  (_)");
 		System.err.println("========================================");
 		System.err.println(e.getMessage());
 		System.err.println("========================================");

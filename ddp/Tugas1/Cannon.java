@@ -53,7 +53,7 @@ class Cannon
 			++time;
 		} while(motion.at(time).getY() > Game.EPS);
 
-		if(motion.timeMax() > time - 1 + Game.EPS)
+		if(motion.timeMax() > time - 1 + Game.EPS && motion.max().getY() > -Game.EPS)
 			printAtTime(motion.timeMax(), motion.max());
 
 		double 	radiusTarget  = Math.abs(motion.max().getX() - target.getPos().getX()),
