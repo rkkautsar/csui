@@ -1,4 +1,16 @@
+/**
+*	Kelas yang berisi method-method static yang berkaitan dengan
+*	pesan-pesan dalam interface
+*	@author Rakha Kanz Kautsar
+*	@version 15.10.2015
+*/
 class Interface {
+
+	/**
+	*	Method yang melaporkan error berupa pesan exception
+	*	kepada user
+	*	@param e Exception yang akan dilaporkan
+	*/
 	public static void error(Exception e){
 		System.err.println();
 		System.err.println("========================================");
@@ -14,6 +26,10 @@ class Interface {
 		delay(1000);
 	}
 
+	/**
+	*	Method yang akan mencetak pesan "Game Over!" kepada user
+	*	ketika game telah berakhir
+	*/
 	public static void gameOver(){
 		System.out.println();
 	  	System.out.println(" / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __| |");
@@ -25,6 +41,10 @@ class Interface {
 		delay(1000);
 	}
 
+	/**
+	*	Method yang akan mencetak heading berupa ASCII art
+	*	kepada user pada awal program
+	*/
 	public static void welcome(){
 		System.out.println("		                                             l    ");
 		System.out.println("           .oOKKOc                           Kc     .c    ");
@@ -49,6 +69,10 @@ class Interface {
 		delay(1000);
 	}
 
+	/**
+	*	Method yang akan digunakan untuk melakukan delay
+	*	@param ms Lama delay dalam microsecond
+	*/
 	public static void delay(int ms){
 		try {
 			Thread.sleep(ms);
