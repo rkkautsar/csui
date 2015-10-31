@@ -20,6 +20,11 @@ class Point
 		y = 0;
 	}
 
+	public Point(Point other){
+		x = other.getX();
+		y = other.getY();
+	}
+
 	/**
 	*	Konstruktor untuk menjadikan titik (x,y)
 	*	menjadi titik yang dimaksud pada kelas Point
@@ -56,6 +61,23 @@ class Point
 	*/
 	public String toString(){
 		return "(" + x + ", " + y + ")";
+	}
+
+	public void scaleX(double s){
+		x *= s;
+	}
+
+	public void scaleY(double s){
+		y *= s;
+	}
+
+	public void scale(double sx, double sy){
+		scaleX(sx);
+		scaleY(sy);
+	}
+
+	public void invertY(double height){
+		y = height - y;
 	}
 
 	// accessor

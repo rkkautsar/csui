@@ -68,7 +68,7 @@ class ParabolicMotion
 	*	@return Waktu yang dibutuhkan untuk mencapai x maksimal
 	*/
 	public double timeMax(){
-		return Math.abs(2 * ((vy + wind.getDy()) / GRAVITY));
+		return Math.abs(2.0 * (vy / (GRAVITY + wind.getDy())));
 	}
 
 	/**

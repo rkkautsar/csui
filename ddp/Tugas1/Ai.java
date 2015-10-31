@@ -21,16 +21,29 @@ class Ai extends Player
 	public static final double AI_MOVE_PROBABILITY = 0.25;
 
 	/**
-	*	Nilai kecepatan default pada sumbu x
+	*	Nilai angle default
 	*	yang akan digunakan pada perhitungan penembakan
 	*/
-	public static final double AI_DEFAULT_VX = 80;
+	public static final double AI_DEFAULT_ANGLE = 45;
+
+	/**
+	*	Banyaknya tahapan binary search yang dilakukan AI,
+	*	variabel ini akan memengaruhi aproksimasi tembakan yang
+	*	dilakukan AI
+	*/
+	public static final int AI_BINARY_SEARCH_STEPS = 8;
 
 	/**
 	*	Random number generator untuk membangkitkan nilai
 	*	random yang unik untuk setiap pemanggilan
 	*/
 	private Random generator;
+
+	/**
+	*	Akses ke kelas ParabolicMotion memungkinkan AI
+	*	melakukan aproksimasi tembakan yang tepat
+	*/
+	private ParabolicMotion motion;
 
 	/**
 	*	Konstruktor AI, menjadikan nama AI menjadi "Noob Bot",
@@ -72,36 +85,33 @@ class Ai extends Player
 	*	@param wind Angin yang sedang berlangsung
 	*/
 	private void shoot(Player enemy, Wind wind){
-		/*
-			distance = vx * time
-			vx = distance / time
-			time = 2 * vy /g
-			vx = distance * g / 2 * vy
-
-			Let vx constants.
-			
-			vy = distance * g / (2*vx)
-			v = hypot(vx,vy)
-			theta = atan(vy/vx)
-		*/
-
-		double distance = Math.abs(pos.getX() - enemy.getPos().getX());
-
-		double 	vx = AI_DEFAULT_VX,
-				vy = (distance * ParabolicMotion.GRAVITY)/(2 * vx);
-
-		vx -= wind.getDx();
-		vy -= wind.getDy();
-
-		double velocity = Math.sqrt(vx*vx + vy*vy);
-		double angle = Math.atan2(vy,vx) * 180 / Math.PI;
+		double angle = AI_DEFAULT_ANGLE;
+		double left = 0, right = 100, mid = 50;
 
 		if(pos.getX() > enemy.getPos().getX())
 			angle = 180 - angle;
 
-		velocity = Math.min(velocity, Game.MAX_POWER);
+		// binary search the velocity
+		for(int i = 0; i < AI_BINARY_SEARCH_STEPS; ++i){
+			mid = (left + right) / 2.0;
+			motion = new ParabolicMotion(pos, mid, angle, wind);
+			if(motion.max().getX() < enemy.getPos().getX()){
+				if(pos.getX() < enemy.getPos().getX()){
+					left = mid - Game.EPS;
+				} else {
+					right = mid + Game.EPS;
+				}
+			} else {
+				if(pos.getX() < enemy.getPos().getX()){
+					right = mid + Game.EPS;
+				} else {
+					left = mid - Game.EPS;
+				}
+			}
+		}
 
-		shoot(enemy, velocity, angle, wind);
+		shoot(enemy, mid, angle, wind);
+
 	}
 
 

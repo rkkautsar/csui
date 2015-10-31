@@ -35,7 +35,7 @@ class Interface {
 	  	System.out.println(" / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __| |");
 		System.out.println("| |  _ / _` | '_ ` _ \\ / _ \\ | | | \\ \\ / / _ \\ '__| |");
 		System.out.println("| |_| | (_| | | | | | |  __/ | |_| |\\ V /  __/ |  |_|");
-		System.out.println("\\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|  (_)");
+		System.out.println(" \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|  (_)");
 		System.out.println();
 
 		delay(1000);

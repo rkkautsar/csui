@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
 *	Kelas yang mengimplementasikan cannon yang menunjukkan
 *	logic dan langkah-langkah detil yang dilakukan saat Player
@@ -45,16 +47,21 @@ class Cannon
 		ParabolicMotion motion = new ParabolicMotion(shooter.getPos(), v, angle, wind);
 
 		calculateLength(motion);
+		ArrayList<Point> pointsToDraw = new ArrayList<Point>();
 
-		int time = 0;
+		double time = 0;
 		do {
 			printAtTime(time, motion.at(time));
-			Interface.delay(100);
-			++time;
+			pointsToDraw.add(motion.at(time));
+
+			Interface.delay(5);
+			time += 0.05;
 		} while(motion.at(time).getY() > Game.EPS);
 
-		if(motion.timeMax() > time - 1 + Game.EPS && motion.max().getY() > -Game.EPS)
-			printAtTime(motion.timeMax(), motion.max());
+		printAtTime(motion.timeMax(), motion.max());
+		pointsToDraw.add(motion.max());
+
+		CannonVisualizer cannon_visualizer = new CannonVisualizer(shooter, target, pointsToDraw);				
 
 		double 	radiusTarget  = Math.abs(motion.max().getX() - target.getPos().getX()),
 				radiusShooter = Math.abs(motion.max().getX() - shooter.getPos().getX());
