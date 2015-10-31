@@ -8,7 +8,7 @@ class CannonVisualizer extends JFrame {
 
 	public CannonVisualizer(Player p1, Player p2, ArrayList<Point> pointsToDraw){
 		super("Cannon War v0.2");
-		setSize(Visualizer.FRAME_W, Visualizer.FRAME_H);
+		setSize(Visualizer.FRAME_W + 50, Visualizer.FRAME_H + 50);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		// System.out.println(p1.getPos() + " " + p2.getPos());

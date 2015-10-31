@@ -76,6 +76,10 @@ class Point
 		scaleY(sy);
 	}
 
+	public void scale(double s){
+		scale(s,s);
+	}
+
 	public void invertY(double height){
 		y = height - y;
 	}

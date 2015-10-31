@@ -28,17 +28,12 @@ class Visualizer extends JComponent
 		player2 = new Point(p2.getPos());
 		ball_motions = new ArrayList<Point>();
 		for(Point p: pointsToDraw){
-			ball_motions.add(new Point(p));
+			ball_motions.add(p);
 		}
 
-		System.out.println(p1.getPos() + " " + p2.getPos());
-		for(Point p : ball_motions){
-			System.out.println(p);
-		}
+		scaleAndInvertPoints();
 
-		//scaleAndInvertPoints();
-
-		System.out.println(p1.getPos() + " " + p2.getPos());
+		System.out.println(player1 + " " + player2);
 		for(Point p : ball_motions){
 			System.out.println(p);
 		}
@@ -52,21 +47,23 @@ class Visualizer extends JComponent
 		g2d.setRenderingHint(	RenderingHints.KEY_ANTIALIASING,
 								RenderingHints.VALUE_ANTIALIAS_ON);
 
+		g2d.setColor(BALL_COLOR);
+		for(Point p : ball_motions){
+			g2d.fill(new Ellipse2D.Double(p.getX(), p.getY(), BALL_SIZE, BALL_SIZE));
+		}
+
 		g2d.setColor(PLAYER1_COLOR);
 		g2d.fill(new Ellipse2D.Double(player1.getX(), player1.getY(), PLAYER_SIZE, PLAYER_SIZE));
 
 		g2d.setColor(PLAYER2_COLOR);
 		g2d.fill(new Ellipse2D.Double(player2.getX(), player2.getY(), PLAYER_SIZE, PLAYER_SIZE));
 
-		g2d.setColor(BALL_COLOR);
-		for(Point p : ball_motions){
-			g2d.fill(new Ellipse2D.Double(p.getX(), p.getY(), BALL_SIZE, BALL_SIZE));
-		}
+		g2d.scale(0.5,0.5);
 	}
 
 	private void scaleAndInvertPoints(){
 		double min_x, min_y, max_x, max_y;
-		double scaleFactorX, scaleFactorY;
+		double scaleFactorX, scaleFactorY, scaleFactor;
 
 		min_x = Math.min(player1.getX(), player2.getX());
 		max_x = Math.max(player1.getX(), player2.getX());
@@ -80,22 +77,27 @@ class Visualizer extends JComponent
 			max_y = Math.max(max_y, p.getY());
 		}
 
-		scaleFactorX = (FRAME_W) / ((max_x - min_x) + PLAYER_SIZE);
-		scaleFactorY = (FRAME_H) / ((max_y - min_y) + PLAYER_SIZE);
+		scaleFactorX = (FRAME_W - 2 * PLAYER_SIZE) / ((max_x - min_x));
+		scaleFactorY = (FRAME_H) / ((max_y - min_y));
+		scaleFactor  = Math.min(scaleFactorX,  scaleFactorY);
 
 		// normalize, scale, and invert
-		player1.translate(-min_x + (PLAYER_SIZE*(1.0/scaleFactorX)), -min_y + (PLAYER_SIZE*(1.0/scaleFactorY)));
-		player2.translate(-min_x + (PLAYER_SIZE*(1.0/scaleFactorX)), -min_y + (PLAYER_SIZE*(1.0/scaleFactorY)));
-		player1.scale(scaleFactorX, scaleFactorY);
-		player2.scale(scaleFactorX, scaleFactorY);
+		player1.translate(-min_x, -min_y);
+		player2.translate(-min_x, -min_y);
+		player1.scale(scaleFactor);
+		player2.scale(scaleFactor);
 		player1.invertY(FRAME_H);
 		player2.invertY(FRAME_H);
+		player1.translate(0, -PLAYER_SIZE);
+		player2.translate(0, -PLAYER_SIZE);
 
 		for(Point p: ball_motions){
-			p.translate(-min_x + (PLAYER_SIZE*(1.0/scaleFactorX)), -min_y + (PLAYER_SIZE*(1.0/scaleFactorY)));
-			p.scale(scaleFactorX, scaleFactorY);
+			p.translate(-min_x, -min_y);
+			p.scale(scaleFactor);
+			p.translate(-BALL_SIZE/2.0, -BALL_SIZE/2.0);
+			p.translate(PLAYER_SIZE/2.0, PLAYER_SIZE/2.0);
 			p.invertY(FRAME_H);
-		}
-
+			p.translate(0, -BALL_SIZE);
 		}
 	}
+}

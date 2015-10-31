@@ -51,14 +51,14 @@ class Cannon
 
 		double time = 0;
 		do {
-			printAtTime(time, motion.at(time));
+			// printAtTime(time, motion.at(time));
 			pointsToDraw.add(motion.at(time));
 
 			Interface.delay(5);
-			time += 0.05;
+			time += 0.1;
 		} while(motion.at(time).getY() > Game.EPS);
 
-		printAtTime(motion.timeMax(), motion.max());
+		// printAtTime(motion.timeMax(), motion.max());
 		pointsToDraw.add(motion.max());
 
 		CannonVisualizer cannon_visualizer = new CannonVisualizer(shooter, target, pointsToDraw);				
