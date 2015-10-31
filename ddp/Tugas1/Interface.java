@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 /**
 *	Kelas yang berisi method-method static yang berkaitan dengan
 *	pesan-pesan dalam interface
@@ -38,7 +40,7 @@ class Interface {
 		System.out.println(" \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|  (_)");
 		System.out.println();
 
-		delay(1000);
+		JOptionPane.showMessageDialog(null, "Game Over!");
 	}
 
 	/**
@@ -64,7 +66,7 @@ class Interface {
 		System.out.println("  cKMMMMMMMMN.:o:XN.      .XK                             ");
 		System.out.println("    .:oxkkxo;    .xWkc;;cOWx.                             ");
 		System.out.println("                   .dNMMNd.                               ");
-		System.out.println("                                         Cannon War v.0.1 ");
+		System.out.println("                                         Cannon War v.0.2 ");
 		System.out.println();
 		delay(1000);
 	}

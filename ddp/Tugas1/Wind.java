@@ -17,7 +17,7 @@ class Wind extends Vector2d
 	/**
 	*	Percepatan absolut maksimum dari angin
 	*/
-	public static final double MAX_WIND_ACCEL = 1;
+	public static final double MAX_WIND_ACCEL = 2.5;
 
 	/**
 	*	Konstruktor class Wind, menjadikan dx dan dy pada vektor
