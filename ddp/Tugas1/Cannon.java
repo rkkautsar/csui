@@ -53,9 +53,7 @@ class Cannon
 		do {
 			// printAtTime(time, motion.at(time));
 			pointsToDraw.add(motion.at(time));
-
-			Interface.delay(5);
-			time += 0.1;
+			time += 0.03;
 		} while(motion.at(time).getY() > Game.EPS);
 
 		// printAtTime(motion.timeMax(), motion.max());

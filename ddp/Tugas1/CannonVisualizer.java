@@ -9,7 +9,7 @@ class CannonVisualizer extends JFrame {
 	public CannonVisualizer(Player p1, Player p2, ArrayList<Point> pointsToDraw){
 		super("Cannon War v0.2");
 		setSize(Visualizer.FRAME_W + 50, Visualizer.FRAME_H + 50);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		// System.out.println(p1.getPos() + " " + p2.getPos());
 		// for(Point p : pointsToDraw){
@@ -21,8 +21,5 @@ class CannonVisualizer extends JFrame {
 
 		
 		setVisible(true);
-		Interface.delay(10000);
-		setVisible(false);
-		dispose();
 	}
 }

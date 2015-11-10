@@ -1,11 +1,18 @@
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.Dimension;
 import java.awt.geom.Ellipse2D;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
 import javax.swing.JComponent;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 class Visualizer extends JComponent
@@ -21,9 +28,14 @@ class Visualizer extends JComponent
 
 	private Point player1;
 	private Point player2;
+	private Point ball;
 	private ArrayList<Point> ball_motions;
+	private int ball_index;
+	private Timer timer;
 
 	public Visualizer(Player p1, Player p2, ArrayList<Point> pointsToDraw){
+		setMinimumSize(new Dimension(FRAME_W, FRAME_H));		
+
 		player1 = new Point(p1.getPos());
 		player2 = new Point(p2.getPos());
 		ball_motions = new ArrayList<Point>();
@@ -31,16 +43,28 @@ class Visualizer extends JComponent
 			ball_motions.add(p);
 		}
 
+		ball_index = 0;
+		ball = ball_motions.get(ball_index);
+
 		scaleAndInvertPoints();
 
-		System.out.println(player1 + " " + player2);
-		for(Point p : ball_motions){
-			System.out.println(p);
-		}
+		timer = new Timer(33, new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(ball_index + 1 < ball_motions.size()){
+					++ball_index;
+					ball = ball_motions.get(ball_index);
+				} else {
+					timer.stop();
+				}
+				repaint();
+			}
+		});
+
+		timer.start();
 	}
 
 	@Override 
-	public void paintComponent(Graphics g){
+	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
@@ -48,17 +72,13 @@ class Visualizer extends JComponent
 								RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setColor(BALL_COLOR);
-		for(Point p : ball_motions){
-			g2d.fill(new Ellipse2D.Double(p.getX(), p.getY(), BALL_SIZE, BALL_SIZE));
-		}
-
+		g2d.fill(new Ellipse2D.Double(ball.getX(), ball.getY(), BALL_SIZE, BALL_SIZE));
+		
 		g2d.setColor(PLAYER1_COLOR);
 		g2d.fill(new Ellipse2D.Double(player1.getX(), player1.getY(), PLAYER_SIZE, PLAYER_SIZE));
 
 		g2d.setColor(PLAYER2_COLOR);
 		g2d.fill(new Ellipse2D.Double(player2.getX(), player2.getY(), PLAYER_SIZE, PLAYER_SIZE));
-
-		g2d.scale(0.5,0.5);
 	}
 
 	private void scaleAndInvertPoints(){
