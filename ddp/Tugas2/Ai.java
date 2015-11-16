@@ -12,7 +12,7 @@ class Ai extends Player
 	/**
 	*	Batasan maksimum posisi AI
 	*/
-	public static final int AI_POS_BOUND = 100;
+	public static final int AI_POS_BOUND = Game.ARENA_X_BOUNDARY;
 
 	/**
 	*	Nilai yang menunjukkan kecendrungan AI
@@ -31,7 +31,7 @@ class Ai extends Player
 	*	variabel ini akan memengaruhi aproksimasi tembakan yang
 	*	dilakukan AI
 	*/
-	public static final int AI_BINARY_SEARCH_STEPS = 8;
+	public static final int AI_BINARY_SEARCH_STEPS = 6;
 
 	/**
 	*	Random number generator untuk membangkitkan nilai
@@ -57,7 +57,10 @@ class Ai extends Player
 		pos = new Point(Math.round(generator.nextInt(AI_POS_BOUND)),0);
 	}
 
-
+	/**
+	*	Method yang meminta AI untuk memilih untuk move atau shoot
+	*	@return Pilihan AI
+	*/
 	public String randomAction(){
 		if(generator.nextDouble() < AI_MOVE_PROBABILITY)
 			return "move";
@@ -65,10 +68,22 @@ class Ai extends Player
 			return "shoot";
 	}
 
+	/**
+	*	Method yang meminta AI untuk melakukan move dengan random
+	*	@return Perpindahan AI
+	*/
 	public int randomMove(){
 		return generator.nextInt(2 * Game.MAX_MOVE) - Game.MAX_MOVE;
 	}
 
+	/**
+	*	Method yang meminta AI untuk menghitung kecepatan optimal
+	*	untuk sudut AI_DEFAULT_ANGLE jika ingin menembak musuh,
+	*	menggunakan binary search sebanyak AI_BINARY_SEARCH_STEPS
+	*	@param enemy Pemain lawan
+	*	@param wind Angin yang berlangsung
+	*	@return kecepatan optimal
+	*/
 	public double getSpeed(Player enemy, Wind wind){
 		double angle = AI_DEFAULT_ANGLE;
 		double left = 0, right = 100, mid = 50;
@@ -97,42 +112,5 @@ class Ai extends Player
 
 		return mid;
 	}
-
-	/**
-	*	Method yang mengimplementasikan penghitungan sudut dan kecepatan
-	*	yang tepat untuk menembak enemy saat wind berlangsung
-	*	@param enemy Musuh sebagai objek Player
-	*	@param wind Angin yang sedang berlangsung
-	*/
-	private void shoot(Player enemy, Wind wind){
-		double angle = AI_DEFAULT_ANGLE;
-		double left = 0, right = 100, mid = 50;
-
-		if(pos.getX() > enemy.getPos().getX())
-			angle = 180 - angle;
-
-		// binary search the velocity
-		for(int i = 0; i < AI_BINARY_SEARCH_STEPS; ++i){
-			mid = (left + right) / 2.0;
-			motion = new ParabolicMotion(pos, mid, angle, wind);
-			if(motion.max().getX() < enemy.getPos().getX()){
-				if(pos.getX() < enemy.getPos().getX()){
-					left = mid - Game.EPS;
-				} else {
-					right = mid + Game.EPS;
-				}
-			} else {
-				if(pos.getX() < enemy.getPos().getX()){
-					right = mid + Game.EPS;
-				} else {
-					left = mid - Game.EPS;
-				}
-			}
-		}
-
-		shoot(enemy, mid, angle, wind);
-
-	}
-
 
 }

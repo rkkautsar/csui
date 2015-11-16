@@ -9,14 +9,37 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-@SuppressWarnings("serial")
+/**
+*	Kelas dari Frame yang akan ditampilkan pada awal sebelum
+*	game dimulai, berisi pilihan jenis game dan tombol exit.
+*	@author Rakha Kanz Kautsar
+*	@version 10-11-2015
+*/
 class NewGameFrame extends JFrame implements ActionListener{
+	private static final long serialVersionUID = 1506688784L;
 
-	private final int FRAME_W = 250;
-	private final int FRAME_H = 200;
+	/**
+	*	Lebar frame
+	*/
+	private final int FRAME_W = 200;
+	/**
+	*	Tinggi frame
+	*/
+	private final int FRAME_H = 150;
 
+	/**
+	*	GUI yang akan dibuat dan dipass ke obyek Game
+	*/
 	private GameGUI gui;
+	/**
+	*	Obyek Game yang akan dimainkan
+	*/
+	private Game game;
 
+	/**
+	*	Konstruktor yang akan memanggil superclass constructor dengan parameter
+	*	"Cannon War v0.2" kemudian mengatur ukuran dan pengaturan lainnya
+	*/
 	public NewGameFrame(){
 		super("Cannon War v0.2");
 		setSize(FRAME_W, FRAME_H);
@@ -25,6 +48,9 @@ class NewGameFrame extends JFrame implements ActionListener{
 		initUI();
 	}
 
+	/**
+	*	Method helper untuk memberikan beberapa button pada frame
+	*/
 	private void initUI(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3,1));
@@ -46,6 +72,11 @@ class NewGameFrame extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	*	Aksi yang akan dilakukan ketika button ditekan,
+	*	mengimplementasikan ActionListener
+	*	@param e ActionEvent yang ter-trigger
+	*/
 	@Override
 	public void actionPerformed(ActionEvent e){
 		String command = e.getActionCommand();
@@ -54,7 +85,7 @@ class NewGameFrame extends JFrame implements ActionListener{
 			setVisible(false);
 			gui = new GameGUI(); 
 			gui.setVisible(true);
-			Game game = new Game(GameType.SOLO, gui);
+			game = new Game(GameType.SOLO, gui);
 
 			while(!game.gameOver());
 
@@ -63,7 +94,7 @@ class NewGameFrame extends JFrame implements ActionListener{
 			setVisible(false);
 			gui = new GameGUI();
 			gui.setVisible(true);
-			Game game = new Game(GameType.PVP, gui);
+			game = new Game(GameType.PVP, gui);
 
 			while(!game.gameOver());
 

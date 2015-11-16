@@ -38,6 +38,11 @@ class Player
 		health = 100;
 	}
 
+	/**
+	*	Konstruktor alternatif dengan parameter kedua berupa posisi di X
+	*	@param name Nama pemain
+	*	@param posX Posisi pemain pada sumbu X
+	*/
 	public Player(String name, int posX){
 		this.name = name;
 		this.pos = new Point(posX, 0);
@@ -46,8 +51,7 @@ class Player
 
 	/**
 	*	Method yang dijalankan ketika ada peluru yang mengenai
-	*	pemain dan mengurangi damage dari health Player, kemudian
-	*	mengecek apakah health Player tersebut habis.
+	*	pemain dan mengurangi damage dari health Player.
 	*	@param damage Damage yang terjadi pada Player 
 	*/
 	public void hit(int damage){
@@ -63,8 +67,17 @@ class Player
 		if(pos.getX() < 0)
 			pos.translate(-pos.getX(), 0);
 
-		if(pos.getY() > Game.ARENA_X_BOUNDARY)
+		if(pos.getX() > Game.ARENA_X_BOUNDARY)
 			pos.translate(Game.ARENA_X_BOUNDARY - pos.getX(), 0);
+	}
+
+	/**
+	*	Method yang akan mengembalikan true jika health dari
+	*	obyek Player telah habis.
+	*	@return status hp habis dari obyek Player
+	*/
+	public boolean dead(){
+		return health <= 0;
 	}
 
 	// accessor
@@ -80,7 +93,4 @@ class Player
 		return pos;
 	}
 
-	public boolean dead(){
-		return health <= 0;
-	}
 }
