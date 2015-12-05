@@ -19,7 +19,7 @@ class Ai extends Player
 	*	untuk melakukan gerakan *move*
 	*/
 	public static final double AI_MOVE_PROBABILITY = 0.25;
-
+	
 	/**
 	*	Nilai angle default
 	*	yang akan digunakan pada perhitungan penembakan
@@ -31,7 +31,7 @@ class Ai extends Player
 	*	variabel ini akan memengaruhi aproksimasi tembakan yang
 	*	dilakukan AI
 	*/
-	public static final int AI_BINARY_SEARCH_STEPS = 7;
+	public static final int AI_BINARY_SEARCH_STEPS = 3;
 
 	/**
 	*	Random number generator untuk membangkitkan nilai

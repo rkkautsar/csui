@@ -51,10 +51,19 @@ class Game {
 	*/
 	private Ball ball;
 
+	/**
+	 * Timer untuk terus mengecek end condition
+	 */
 	private Timer endTimer;
 
+	/**
+	 * Panel untuk menerima input
+	 */
 	private InputPanel inputPanel;
 
+	/**
+	 * Berapa ronde telah berjalan
+	 */
 	private int round;
 
 
@@ -104,6 +113,9 @@ class Game {
 
 		gui.update();
 
+		/**
+		 * Timer untuk mengecek end condition dengan delay 500ms
+		 */
 		endTimer = new Timer(500, new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(gameOver()){
@@ -132,6 +144,10 @@ class Game {
 		gui.update();
 	}
 
+	/**
+	 * Melakukan perpindahan terhadap pemain di ronde ini
+	 * @param displacement besar perpindahan
+	 */
 	public void turnMove(int displacement){
 		if(round % 2 == 0){
 			player1.move(displacement);
@@ -148,12 +164,22 @@ class Game {
 		if(round % 2 == 0){
 			wind = new Wind();
 			gui.showWind(wind);
+			inputPanel.setTurn(player1);
 		}
 
-		if(round % 2 == 1 && type == GameType.SOLO)
+		if(round % 2 == 1 && type == GameType.SOLO){
+			inputPanel.setTurn(bot);
 			botTurn();
+		}
+		else if(round % 2 == 1 && type == GameType.PVP)
+			inputPanel.setTurn(player2);
 	}
 
+	/**
+	 * Melakukan penembakan pada pemain yang mendapat turn
+	 * @param angle sudut dalam derajat ke arah lawan
+	 * @param power kecepatan (m/s)
+	 */
 	public void turnShoot(double angle, double power){
 		
 
@@ -174,6 +200,7 @@ class Game {
 				angle = 180 - angle;
 
 			ball = new Ball(player2.getPos(), power, angle, wind);
+			gui.addBall(ball);
 		} else {
 			// Bot
 			// Seharusnya gak kesini.
@@ -185,12 +212,20 @@ class Game {
 		if(round % 2 == 0){
 			wind = new Wind();
 			gui.showWind(wind);
+			inputPanel.setTurn(player1);
 		}
 
-		if(round % 2 == 1 && type == GameType.SOLO)
+		if(round % 2 == 1 && type == GameType.SOLO){
+			inputPanel.setTurn(bot);
 			botTurn();
+		} else if(round % 2 == 1 && type == GameType.PVP){
+			inputPanel.setTurn(player2);
+		}
 	}
 
+	/**
+	 * Rutin ketika bot mendapat turn
+	 */
 	public void botTurn(){
 		String action = bot.randomAction();
 		
@@ -214,7 +249,9 @@ class Game {
 		if(round % 2 == 0){
 			wind = new Wind();
 			gui.showWind(wind);
+			inputPanel.setTurn(player1);
 		}
+
 	}
 
 	/**
@@ -251,6 +288,9 @@ class Game {
 		}
 	}	
 
+	/**
+	 * Game telah berakhir.
+	 */
 	public void end(){
 		gui.info("Game Over!");
 	}

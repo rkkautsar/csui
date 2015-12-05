@@ -24,30 +24,64 @@ import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+/**
+ * Panel yang berisi komponen-komponen untuk input dari user
+ * @author  Rakha Kanz Kautsar
+ * @version 0.1-alpha
+ */
+
 class InputPanel extends JPanel {
 	private static final long serialVersionUID = 1506688784L;
 
+	/**
+	 * Lebar total panel
+	 */
 	public static final int PANEL_W = 200;
 
+	/**
+	 * Panel untuk menyimpan "kartu-kartu" dari CardLayout
+	 */
 	private JPanel cards;
+	/**
+	 * Panel untuk menyimpan 
+	 */
 	private JPanel paneRadio;
+	/**
+	 * ShootPanel sebagai masukan jika ingin menembak
+	 */
 	private ShootPanel paneShoot;
+	/**
+	 * MovePanel sebagai masukan jika ingin berpindah tempat
+	 */
 	private MovePanel paneMove;
-	private JLabel lblTurn;
+	/**
+	 * Pilihan untuk menembak
+	 */
 	private JRadioButton radShoot;
+	/**
+	 * Pilihan untuk berpindah tempat
+	 */
 	private JRadioButton radMove;
+	/**
+	 * ButtonGroup untuk mengelompokkan JRadioButton
+	 */
 	private ButtonGroup btnGroup;
-
+	/**
+	 * Objek Game untuk mengarahkan input ke game
+	 */
 	private Game game;
 	
+
+	/**
+	 * Konstruktor default
+	 * @param  game game yang dimainkan
+	 */
 	public InputPanel(Game game){
 		this.game = game;
 		
 		setPreferredSize(new Dimension(PANEL_W,GameGUI.FRAME_H - 50));
 		setBorder(new EmptyBorder(10,10,10,10));
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-		lblTurn   = new JLabel(" - ");
 		paneShoot = new ShootPanel();
 		paneMove  = new MovePanel();
 
@@ -73,6 +107,9 @@ class InputPanel extends JPanel {
 		add(paneRadio, BorderLayout.PAGE_START);
 		add(cards, BorderLayout.CENTER);
 
+		/**
+		 * ActionListener untuk memindah "kartu" menjadi shoot
+		 */
 		radShoot.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CardLayout cl = (CardLayout)(cards.getLayout());
@@ -80,6 +117,9 @@ class InputPanel extends JPanel {
 			}
 		});
 
+		/**
+		 * ActionListener untuk memindah "kartu" menjadi move
+		 */
 		radMove.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CardLayout cl = (CardLayout)(cards.getLayout());
@@ -88,33 +128,52 @@ class InputPanel extends JPanel {
 		});
 	}
 
-	public void disableAll(){
-		paneShoot.disableButton();
-		paneMove.disableButton();
-	}
-
-	public void enableAll(){
-		paneShoot.enableButton();
-		paneMove.enableButton();
-	}
-
+	/**
+	 * Method untuk mengubah label turn pada panel
+	 * @param p player yang mendapat turn
+	 */
 	public void setTurn(Player p){
-		lblTurn.setText(p.getName() + "'s turn.");
+		paneShoot.setTurn(p.getName() + "'s turn.");
+		paneMove.setTurn(p.getName() + "'s turn.");
 	}
 
-
+	/**
+	 * Inner class untuk menerima masukan untuk menembak
+	 */
 	class ShootPanel extends JPanel {
 		private static final long serialVersionUID = 1506688784L;
+		/**
+		 * Label untuk slider power
+		 */
 		private JLabel lblPower;
+		/**
+		 * Label untuk slider angle
+		 */
 		private JLabel lblAngle;
+		/**
+		 * Label untuk turn
+		 */
+		private JLabel lblTurn;
+
+		/**
+		 * Slider untuk angle
+		 */
 		private JSlider sldAngle;
+		/**
+		 * Slider untuk power
+		 */
 		private JSlider sldPower;
+
+		/**
+		 * Button untuk memproses input
+		 */
 		private JButton btnShoot;
 
 		public ShootPanel(){
 			setPreferredSize(new Dimension(PANEL_W,GameGUI.FRAME_H - 50));
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+			lblTurn = new JLabel("-");
 			add(lblTurn);
 
 			lblAngle = new JLabel("Angle : " + Game.DEFAULT_ANGLE);
@@ -136,18 +195,27 @@ class InputPanel extends JPanel {
 			lblPower.setAlignmentX(CENTER_ALIGNMENT);
 			btnShoot.setAlignmentX(CENTER_ALIGNMENT);
 
+			/**
+			 * ChangeListener untuk mengsinkronkan label dengan slider
+			 */
 			sldAngle.addChangeListener(new ChangeListener(){
 				public void stateChanged(ChangeEvent e){
 					lblAngle.setText("Angle : " + sldAngle.getValue());
 				}
 			});
 
+			/**
+			 * ChangeListener untuk mengsinkronkan label dengan slider
+			 */
 			sldPower.addChangeListener(new ChangeListener(){
 				public void stateChanged(ChangeEvent e){
 					lblPower.setText("Power : " + sldPower.getValue());
 				}
 			});
 
+			/**
+			 * ActionListener untuk menembak bola ketika button Shoot ditekan
+			 */
 			btnShoot.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					game.turnShoot(sldAngle.getValue(), sldPower.getValue());
@@ -155,24 +223,39 @@ class InputPanel extends JPanel {
 			});
 		}
 
-		protected void disableButton(){
-			btnShoot.setEnabled(false);
-		}
-
-		protected void enableButton(){
-			btnShoot.setEnabled(true);
+		/**
+		 * Mutator lblTurn.
+		 * @param s String untuk lblTurn
+		 */
+		public void setTurn(String s){
+			lblTurn.setText(s);
 		}
 	}
 
 	class MovePanel extends JPanel {
 		private static final long serialVersionUID = 1506688784L;
+		/**
+		 * Label untuk perpindahan
+		 */
 		private JLabel lblMove;
+		/**
+		 * Label turn
+		 */
+		private JLabel lblTurn;
+		/**
+		 * Slider perpindahan
+		 */
 		private JSlider sldMove;
+		/**
+		 * Button untuk memproses input
+		 */
 		private JButton btnMove;
+
 		public MovePanel(){
 			setPreferredSize(new Dimension(PANEL_W,GameGUI.FRAME_H - 50));
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+			lblTurn = new JLabel("-");
 			add(lblTurn);
 
 			lblMove = new JLabel("Move by : " + Game.DEFAULT_MOVE);
@@ -188,12 +271,18 @@ class InputPanel extends JPanel {
 			lblMove.setAlignmentX(CENTER_ALIGNMENT);
 			btnMove.setAlignmentX(CENTER_ALIGNMENT);
 			
+			/**
+			 * ChangeListener untuk mengsinkronkan label dengan slider
+			 */
 			sldMove.addChangeListener(new ChangeListener(){
 				public void stateChanged(ChangeEvent e){
 					lblMove.setText("Move by : " + sldMove.getValue());
 				}
 			});
 
+			/**
+			 * ActionListener untuk melakukan perpindahan pada game
+			 */
 			btnMove.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					game.turnMove(sldMove.getValue());
@@ -201,12 +290,12 @@ class InputPanel extends JPanel {
 			});
 		}
 
-		protected void disableButton(){
-			btnMove.setEnabled(false);
-		}
-
-		protected void enableButton(){
-			btnMove.setEnabled(true);
+		/**
+		 * Mutator lblTurn.
+		 * @param s String untuk lblTurn
+		 */
+		public void setTurn(String s){
+			lblTurn.setText(s);
 		}
 	}
 }

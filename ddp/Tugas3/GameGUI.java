@@ -77,11 +77,13 @@ class GameGUI extends JFrame {
 	private ArrayList<Point> balls;
 
 	/**
-	*	Konstruktor GUI yang berisi inisialisasi dan penambahan panel
-	*/
-
+	 * Label untuk menampilkan angin
+	 */
 	private JLabel lblWind;
 
+	/**
+	*	Konstruktor GUI yang berisi inisialisasi dan penambahan panel
+	*/
 	public GameGUI(){
 		super("Cannon War v0.3");
 
@@ -150,6 +152,9 @@ class GameGUI extends JFrame {
 
 	}
 
+	/**
+	 * Rutin bantuan untuk menambahkan komponen pada layout grid bag
+	 */
 	public void addOthers(){
 		GridBagConstraints cons = new GridBagConstraints();
 		
@@ -178,10 +183,6 @@ class GameGUI extends JFrame {
 		if(!player.dead() && ball.hit(player))
 			info("The projectile hits " + player.getName() + 
 				". " + player.getName() + " has " + player.getHealth() + " HP remaining.");
-	}
-
-	public void setTurn(Player p){
-		// inputPanel.setTurn(p);
 	}
 
 	// Mutator
